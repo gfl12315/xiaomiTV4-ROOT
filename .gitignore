@@ -1,0 +1,9 @@
+*.o
+*.img
+*.bin
+*.zip
+zig-cache/
+zig-out/
+__pycache__/
+# 本地分区备份（含设备专属凭证与版权固件，禁止入库）
+backup/
