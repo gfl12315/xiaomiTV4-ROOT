@@ -1,4 +1,38 @@
-# 小米电视4 ROOT 与 ADB 永久开启
+# 小米电视4 ROOT 与 ADB 永久开启【全链路已突破 · 治理体系已落地】
+
+> **完成状态总览（全部实机验证通过）**
+>
+> **一、提权链（内存态，重启还原）**
+> - ✅ GPU 任意物理内存写（Mali-400 Utgard，物理地址校验绕过）
+> - ✅ syscall 表空槽调用（kfunc，arm64 内核无源码注入）
+> - ✅ 内核任意读/写（probe 通道 + 槽位写）
+> - ✅ root 提权闭环（GPU 写 → 空槽 → 内核全权执行）
+>
+> **二、持久化层（落盘，重启不丢）**
+> - ✅ env 分区 SELinux 源头禁用（Permissive 永久，重启不反弹）
+> - ✅ build.prop 修改（ro.adb.secure=0 / ro.debuggable=1）
+> - ✅ ADB 网络通道永久开启 + 双保险保活（用户态巡检 + kcrontab 兜底）
+> - ✅ boot.img 完全体（内核四补丁 + 迷你系统装配，焊死进 boot 分区）
+> - ✅ 补丁版 TWRP（systemcontrol_static 中性化，进出 recovery 不破坏状态）
+>
+> **三、内核态治理体系（终态落地，多轮重启复验全绿）**
+> - ✅ 五模块常驻：kctl（/dev/kxmen 全权通道+token 认证 fail-closed）/ kadblock（DNS 全量拦截+SNI 识别）/ kcrontab（内核态定时守护）/ kcap（抓包）/ kwatch（内存监控）
+> - ✅ 开机自愈链 boot-fix 段（install-recovery.sh：五模块装回 + kcrontab 清槽幂等喂回 + core_pattern + 权限 775/0600 + printk 限流）
+> - ✅ core_pattern 队列换装通道（运行期 insmod/rmmod，绕 su 空 capability）
+> - ✅ /dev/kxmen 0600 + token 双层防线
+>
+> **四、刷机与救援通道**
+> - ✅ U 盘引导 TWRP（救砖保险绳，零额外硬件）
+> - ✅ BCB/OpenRecoveryScript 自动化刷入闭环
+> - ✅ TFTP 网络刷机探针（v4 三态标记，只下载到内存）
+> - ✅ 三版本一键对调（swap_boot.bat）+ 开机 Logo 自定义
+> - ✅ U-Boot 串口控制台工具
+>
+> **五、工具与配套**
+> - ✅ LKM 无内核源码构建工具链（zig cc + build_lkm.py，含预编译模块）
+> - ✅ Web 状态面板（panel.html + httpd）
+> - ✅ 未 Root 设备复用流程（六步完成 root）
+> - ✅ 全流程文档（分级风险提示 + 个人/法律免责条款）
 
 适用小米电视4 系列 55 英寸（销售型号 L55M5-EC，系统里显示的产线代号是 MiTV4-ANSM0，device 名叫 `xmen`）。整套流程做完之后的效果：
 
